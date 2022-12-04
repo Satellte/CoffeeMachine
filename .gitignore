@@ -1,0 +1,17 @@
+.gradle
+.idea
+gradle
+*.gradle
+*.yaml
+gradlew*
+
+Brush up your code
+Buy, fill, take
+Estimate the number of servings
+Ingredient calculator
+Keep track of the supplies
+Making coffee
+
+build
+out
+test
