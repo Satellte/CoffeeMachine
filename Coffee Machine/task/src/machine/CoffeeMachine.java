@@ -3,94 +3,162 @@ package machine;
 import java.util.Scanner;
 
 public class CoffeeMachine {
+
     public static void main(String[] args) {
+        int availableWater, availableMilk, availableBeans, availableCups, availableMoney;
+        availableWater = 400;
+        availableMilk = 540;
+        availableBeans = 120;
+        availableCups = 9;
+        availableMoney = 550;
+        showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+    }
+
+    public static void showStatus(int availableWater, int availableMilk, int availableBeans, int availableCups,
+                                  int availableMoney) {
+        System.out.print("\nThe coffee machine has:\n");
+        System.out.println(availableWater + " ml of water");
+        System.out.println(availableMilk + " ml of milk");
+        System.out.println(availableBeans + " g of coffee beans");
+        System.out.println(availableCups + " disposable cups");
+        System.out.println("$" + availableMoney + " of money");
+        selectMenu(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+    }
+    public static void selectMenu(int availableWater, int availableMilk, int availableBeans, int availableCups,
+                                  int availableMoney) {
         Scanner scanner = new Scanner(System.in);
-        int[][] array = new int[3][3];
-        int maxAvailableCups;
-        System.out.print("Write how many ml of water the coffee machine has:\n");
-        array[0][0] = scanner.nextInt(); //количество оставшейся воды
-        System.out.print("Write how many ml of milk the coffee machine has:\n");
-        array[0][1] = scanner.nextInt(); //количество оставшегося молока
-        System.out.print("Write how many grams of coffee beans the coffee machine has:\n");
-        array[0][2] = scanner.nextInt(); //количество оставшихся зерен
-        System.out.print("Write how many cups of coffee you will need:\n");
-        int cupsOfCoffee = scanner.nextInt();
-        maxAvailableCups = checkingAmount(array);
-        //System.out.println("maxav " + maxAvailableCups);
-        if (maxAvailableCups < cupsOfCoffee) {
-            System.out.printf("No, I can make only %d cup(s) of coffee", maxAvailableCups);
-        } else if (maxAvailableCups == cupsOfCoffee) {
-            System.out.println("Yes, I can make that amount of coffee");
-        } else {
-            int overCupsOfCoffee = maxAvailableCups - cupsOfCoffee;
-            System.out.printf("Yes, I can make that amount of coffee (and even %d more than that)", overCupsOfCoffee);
+        System.out.println("\nWrite action (buy, fill, take):");
+        String selection = scanner.nextLine();
+        switch (selection) {
+            case ("buy") -> buy(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+            case ("fill") -> fill(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+            case ("take") -> take(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+            default -> {
+            }
         }
-        /*System.out.printf("For %d cups of coffee you will need:\n", cupsOfCoffee);
-        System.out.println(calculationForOneCupOfCoffee(cupsOfCoffee));
-        startMachine();
-        grindBeans();
-        boilWater();
-        mixWaterAndBeans();
-        pourCoffee();
-        pourMilk();
-        serveCoffee();*/
     }
 
-    /**
-     * This method figure out how much of each ingredient the machine will need
-     *
-     * @return returns String with list of the required ingredient amounts
-     */
-    public static int checkingAmount(int[][] array) {
-        int waterPerCup = 200;
-        int milkPerCup = 50;
-        int coffeeBeansPerCup = 15;
-        int maxAvailableCups;
-        array[1][0] = array[0][0] / waterPerCup; //заносим количество чашек по воде
-        array[1][1] = array[0][1] / milkPerCup; //заночим количество чашек по молоку
-        array[1][2] = array[0][2] / coffeeBeansPerCup; //заносим количество чашек по зернам
-        //System.out.println(array[1][0]+ " " + array[1][1] + " " + array[1][2]);
-        if ((array[1][0] <= array[1][1]) && (array[1][0] <= array[1][2])) { //если наименьшее количество чашек по воде
-            maxAvailableCups = array[1][0];
-            //System.out.println("вода");
-        } else if ((array[1][1] <= array[1][0]) && (array[1][1] <= array[1][2])) { //если наименьшее количество чашек по молоку
-            maxAvailableCups = array[1][1];
-            //System.out.println("молоко");
-        } else { //если наименьшее количество чашек по кофе
-            maxAvailableCups = array[1][2];
-            //System.out.println("кофе");
+    public static void buy(int availableWater, int availableMilk, int availableBeans, int availableCups,
+                           int availableMoney) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+        int selection = scanner.nextInt();
+        switch (selection) {
+            case (1) -> makeEspresso(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+            case (2) -> makeLatte(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+            case (3) -> makeCappuccino(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+            default -> {
+            }
         }
-        return maxAvailableCups;
-        /*int waterForCups, milkForCups, coffeeBeansForCups;
-        waterForCups = waterPerCup * cupsOfCoffee;
-        milkForCups = milkPerCup * cupsOfCoffee;
-        coffeeBeansForCups = coffeeBeansPerCup * cupsOfCoffee;
-        return waterForCups + " ml of water\n" + milkForCups + " ml of milk\n" + coffeeBeansForCups + " g of coffee beans";*/
-    }
-    /*private static void startMachine() {
-        System.out.println("Starting to make a coffee");
-    }
-    private static void grindBeans() {
-        System.out.println("Grinding coffee beans");
     }
 
-    private static void boilWater() {
-        System.out.println("Boiling water");
+    public static void makeEspresso(int availableWater, int availableMilk, int availableBeans, int availableCups,
+                                    int availableMoney) {
+        availableWater = availableWater - 250;
+        if (availableWater <= 0) {
+            availableWater = availableWater + 250;
+            System.out.println("Not enough water, please, refill water");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableBeans = availableBeans - 16;
+        if (availableBeans <= 0) {
+            availableBeans = availableBeans + 16;
+            System.out.println("Not enough beans, please, refill beans");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableCups = availableCups - 1;
+        if (availableWater <= 0) {
+            availableCups = availableCups + 1;
+            System.out.println("Not enough cups, please, refill cups");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableMoney = availableMoney + 4;
+        showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
     }
 
-    private static void mixWaterAndBeans() {
-        System.out.println("Mixing boiled water with crushed coffee beans");
+    public static void makeLatte(int availableWater, int availableMilk, int availableBeans, int availableCups,
+                                 int availableMoney) {
+        availableWater = availableWater - 350;
+        if (availableWater <= 0) {
+            availableWater = availableWater + 350;
+            System.out.println("Not enough water, please, refill water");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableMilk = availableMilk - 75;
+        if (availableMilk <= 0) {
+            availableMilk = availableMilk + 75;
+            System.out.println("Not enough milk, please, refill milk");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableBeans = availableBeans - 20;
+        if (availableBeans <= 0) {
+            availableBeans = availableBeans + 20;
+            System.out.println("Not enough beans, please, refill beans");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableCups = availableCups - 1;
+        if (availableWater <= 0) {
+            availableCups = availableCups + 1;
+            System.out.println("Not enough cups, please, refill cups");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableMoney = availableMoney + 7;
+        showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
     }
 
-    private static void pourCoffee() {
-        System.out.println("Pouring coffee into the cup");
+    public static void makeCappuccino(int availableWater, int availableMilk, int availableBeans, int availableCups,
+                                      int availableMoney) {
+        availableWater = availableWater - 200;
+        if (availableWater <= 0) {
+            availableWater = availableWater + 200;
+            System.out.println("Not enough water, please, refill water");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableMilk = availableMilk - 100;
+        if (availableMilk <= 0) {
+            availableMilk = availableMilk + 100;
+            System.out.println("Not enough milk, please, refill milk");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableBeans = availableBeans - 12;
+        if (availableBeans <= 0) {
+            availableBeans = availableBeans + 12;
+            System.out.println("Not enough beans, please, refill beans");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableCups = availableCups - 1;
+        if (availableWater <= 0) {
+            availableCups = availableCups + 1;
+            System.out.println("Not enough cups, please, refill cups");
+            showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+        }
+        availableMoney = availableMoney + 6;
+        showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
     }
 
-    private static void pourMilk() {
-        System.out.println("Pouring some milk into the cup");
+    public static void fill(int availableWater, int availableMilk, int availableBeans, int availableCups,
+                            int availableMoney) {
+        int addWater, addMilk, addBeans, addCups;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Write how many ml of water you want to add:\n> ");
+        addWater = scanner.nextInt();
+        System.out.println("Write how many ml of milk you want to add:\n> ");
+        addMilk = scanner.nextInt();
+        System.out.println("Write how many grams of coffee beans you want to add:\n> ");
+        addBeans = scanner.nextInt();
+        System.out.println("Write how many disposable cups you want to add:\n> ");
+        addCups = scanner.nextInt();
+        availableWater = availableWater + addWater;
+        availableMilk = availableMilk + addMilk;
+        availableBeans = availableBeans + addBeans;
+        availableCups = availableCups + addCups;
+        showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
     }
 
-    private static void serveCoffee() {
-        System.out.println("Coffee is ready!");
-    }*/
+    public static void take(int availableWater, int availableMilk, int availableBeans, int availableCups,
+                            int availableMoney) {
+        System.out.println("I gave you $" + availableMoney);
+        availableMoney = 0;
+        showStatus(availableWater, availableMilk, availableBeans, availableCups, availableMoney);
+    }
 }
