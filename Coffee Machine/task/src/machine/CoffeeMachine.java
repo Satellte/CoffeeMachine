@@ -3,7 +3,7 @@ package machine;
 import java.util.Scanner;
 
 public class CoffeeMachine {
-
+    static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         int availableWater, availableMilk, availableBeans, availableCups, availableMoney;
         availableWater = 400;
@@ -26,7 +26,7 @@ public class CoffeeMachine {
     }
     public static void selectMenu(int availableWater, int availableMilk, int availableBeans, int availableCups,
                                   int availableMoney) {
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         System.out.println("\nWrite action (buy, fill, take):");
         String selection = scanner.nextLine();
         switch (selection) {
@@ -40,7 +40,7 @@ public class CoffeeMachine {
 
     public static void buy(int availableWater, int availableMilk, int availableBeans, int availableCups,
                            int availableMoney) {
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         System.out.println("\nWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
         int selection = scanner.nextInt();
         switch (selection) {
@@ -139,14 +139,14 @@ public class CoffeeMachine {
     public static void fill(int availableWater, int availableMilk, int availableBeans, int availableCups,
                             int availableMoney) {
         int addWater, addMilk, addBeans, addCups;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Write how many ml of water you want to add:\n> ");
+       // Scanner scanner = new Scanner(System.in);
+        System.out.print("Write how many ml of water you want to add:\n> ");
         addWater = scanner.nextInt();
-        System.out.println("Write how many ml of milk you want to add:\n> ");
+        System.out.print("Write how many ml of milk you want to add:\n> ");
         addMilk = scanner.nextInt();
-        System.out.println("Write how many grams of coffee beans you want to add:\n> ");
+        System.out.print("Write how many grams of coffee beans you want to add:\n> ");
         addBeans = scanner.nextInt();
-        System.out.println("Write how many disposable cups you want to add:\n> ");
+        System.out.print("Write how many disposable cups you want to add:\n> ");
         addCups = scanner.nextInt();
         availableWater = availableWater + addWater;
         availableMilk = availableMilk + addMilk;
