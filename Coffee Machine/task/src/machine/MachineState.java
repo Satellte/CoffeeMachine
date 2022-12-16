@@ -1,4 +1,4 @@
-package CoffeeMachine;
+package machine;
 
 public enum MachineState {
     OFF, SHOWMAINMENU, MAKINGCOFFE, NEEDRESOURCES, GIVEMONEY, SHOWRESOURCES

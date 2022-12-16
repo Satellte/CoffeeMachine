@@ -1,7 +1,7 @@
-package CoffeeMachine;
+package machine;
 
 import java.util.Scanner;
-import static CoffeeMachine.TypeOfCoffee.*;
+import static machine.TypeOfCoffee.*;
 
 public class CoffeeMachine {
     static MachineState state;
@@ -25,20 +25,20 @@ public class CoffeeMachine {
     public static void showMainMenu(){
         Scanner scanner = new Scanner(System.in);
         switch (state){
-        case SHOWMAINMENU -> {
-        System.out.print("Write action (buy, fill, take, remaining, exit):\n> ");
-        setStateOfMachine(scanner.next().toLowerCase());
-        }
-        case MAKINGCOFFE -> {
-        System.out.print("\nWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, or back\n> ");
-        showCoffeeMenu(scanner.next().toLowerCase());
-        setToMainState();
-        }
+            case SHOWMAINMENU -> {
+                System.out.print("Write action (buy, fill, take, remaining, exit):\n> ");
+                setStateOfMachine(scanner.next().toLowerCase());
+            }
+            case MAKINGCOFFE -> {
+                System.out.print("\nWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, or back\n> ");
+                showCoffeeMenu(scanner.next().toLowerCase());
+                setToMainState();
+            }
             case SHOWRESOURCES -> getPrintResources();
-        case NEEDRESOURCES -> addResources();
-        case GIVEMONEY -> giveMoney();
-        case OFF -> System.exit(0);
-}
+            case NEEDRESOURCES -> addResources();
+            case GIVEMONEY -> giveMoney();
+            case OFF -> System.exit(0);
+        }
     }
     public static void setToMainState(){
         state = MachineState.SHOWMAINMENU;
@@ -97,7 +97,7 @@ public class CoffeeMachine {
         switch (function){
             case "buy" ->{
                 state = MachineState.MAKINGCOFFE;
-               showMainMenu();
+                showMainMenu();
             }
             case "fill" -> {
                 state = MachineState.NEEDRESOURCES;
@@ -144,12 +144,14 @@ public class CoffeeMachine {
     }
 
     public static void getPrintResources(){
-        System.out.printf("\nThe coffee machine has:\n" +
-                "%d ml of water,\n" +
-                "%d ml of milk,\n" +
-                "%d g of coffee beans,\n" +
-                "%d disposable cups\n" +
-                "$%d of money\n", water, milk, beans, cups, money);
+        System.out.printf("""
+                The coffee machine has:
+                %d ml of water,
+                %d ml of milk,
+                %d g of coffee beans,
+                %d disposable cups
+                $%d of money
+                """, water, milk, beans, cups, money);
         System.out.print("\n");
         setToMainState();
         showMainMenu();

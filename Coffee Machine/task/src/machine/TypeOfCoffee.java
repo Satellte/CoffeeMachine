@@ -1,4 +1,4 @@
-package CoffeeMachine;
+package machine;
 
 public enum TypeOfCoffee {
     ESPRESSO(250, 0, 16, 1, 4),
