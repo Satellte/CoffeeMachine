@@ -1,5 +1,7 @@
 package machine;
 
+import java.util.Scanner;
+
 public class DeLonghi extends CoffeeMachine {
     protected static int water;
     protected static int milk;

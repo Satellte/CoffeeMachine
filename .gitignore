@@ -1,6 +1,7 @@
 .gradle
 .idea
 gradle
+Topics
 *.gradle
 *.yaml
 gradlew*
