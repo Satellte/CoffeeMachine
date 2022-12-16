@@ -1,0 +1,5 @@
+package CoffeeMachine;
+
+public enum MachineState {
+    OFF, SHOWMAINMENU, MAKINGCOFFE, NEEDRESOURCES, GIVEMONEY, SHOWRESOURCES
+}
