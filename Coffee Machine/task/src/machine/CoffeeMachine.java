@@ -74,7 +74,7 @@ public class CoffeeMachine {
 
     /**
      * This method shows menu with coffee types from enum TypeOfCoffee, then receive selection from user and,
-     * in dependency of user selection, start method makeCoffee
+     * in dependency of user selection, start method makeCoffee.
      * @param selection
      */
     public static void showCoffeeMenu(String selection) {
@@ -133,6 +133,11 @@ public class CoffeeMachine {
         showMainMenu();
     }
 
+    /**
+     * Method changing current state of machine in depends on choice of user in main menu (showMainMenu)
+     * @param function - this parameter is choice of user in main menu
+     * There is 5 states, from enum MachineStage
+     */
     public static void setStateOfMachine(String function){
         switch (function){
             case "buy" ->{
@@ -156,6 +161,10 @@ public class CoffeeMachine {
 
     }
 
+    /**
+     * in this method the user enters the amount of added resources and method is increment amount to
+     * the current resources, then shows main menu
+     */
     public static void addResources(){
         Scanner scanner = new Scanner(System.in);
         int addWater, addMilk, addBeans, addCups;
@@ -175,6 +184,10 @@ public class CoffeeMachine {
         showMainMenu();
     }
 
+
+    /**
+     * this method displays how much money in machine now and then resets this value to zero, then shows main menu
+     */
     public static void giveMoney(){
         System.out.printf("I gave you $%d \n", money);
         System.out.print("\n");
@@ -183,6 +196,9 @@ public class CoffeeMachine {
         showMainMenu();
     }
 
+    /**
+     * this method show current amount of resources in machine, then shows main menu
+     */
     public static void getPrintResources(){
         System.out.printf("""
                 The coffee machine has:
