@@ -3,7 +3,15 @@ package machine;
 import java.util.Scanner;
 import static machine.TypeOfCoffee.*;
 
+/**
+ * Class CoffeeMachine.
+ */
 public class CoffeeMachine {
+
+    /**
+     * Declaration of fields of object of the class. All fields are static.
+     * This fields show how many resources object of class Coffee Machine have.
+     */
     static MachineState state;
     static int water;
     static int milk;
@@ -11,7 +19,17 @@ public class CoffeeMachine {
     static int cups;
     static int money;
 
-
+    /**
+     * Method setter for object of class Coffee Machine
+     * @param state this field show current state from enum Machine State
+     * @param water this field show current amount of water the machine have
+     * @param milk this field show current amount of milk the machine have
+     * @param beans this field show current amount of beans the machine have
+     * @param cups this field show current amount of cups the machine have
+     * @param money this field show current amount of money the machine have
+     *
+     * After initialization call method setToMainState
+     */
     public void setResources(MachineState state, int water, int milk, int beans, int cups, int money) {
         CoffeeMachine.state = state;
         CoffeeMachine.water = water;
@@ -22,6 +40,19 @@ public class CoffeeMachine {
 
         setToMainState();
     }
+
+    /**
+     *This method change state of this machine to SHOWMAINMENU
+     */
+    public static void setToMainState(){
+        state = MachineState.SHOWMAINMENU;
+    }
+
+
+    /**
+     * This method shows welcome screen of main menu, then receive selection from user and,
+     * in dependency of user selection, change state of this machine
+     */
     public static void showMainMenu(){
         Scanner scanner = new Scanner(System.in);
         switch (state){
@@ -40,10 +71,12 @@ public class CoffeeMachine {
             case OFF -> System.exit(0);
         }
     }
-    public static void setToMainState(){
-        state = MachineState.SHOWMAINMENU;
-    }
 
+    /**
+     * This method shows menu with coffee types from enum TypeOfCoffee, then receive selection from user and,
+     * in dependency of user selection, start method makeCoffee
+     * @param selection
+     */
     public static void showCoffeeMenu(String selection) {
         TypeOfCoffee receipt = null;
 
@@ -60,6 +93,13 @@ public class CoffeeMachine {
         makeCoffee(receipt);
     }
 
+    /**
+     * This method compares current resources of the machine and amount of need resources from the enum TypeOfCoffee
+     * @param receipt this parameter shows what type of coffee need
+     * If some resource is not enough, method shows warning with name of this resource
+     * If there are enough resources, method subtract need resources from current resources,
+     * then change state for main state and call main menu
+     */
     public static void makeCoffee(TypeOfCoffee receipt) {
         if (water < receipt.needWater()) {
             System.out.println("Sorry, not enough water!\n");
@@ -158,4 +198,3 @@ public class CoffeeMachine {
     }
 
 }
-
